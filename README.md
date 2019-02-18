@@ -21,29 +21,16 @@ git clone git@github.com:wangzhikui/koa2-bff.git
 cd koa2-bff
 npm install
 ```
-## 步骤三 配置数据库连接&web端口配置（默认3000）
+## 步骤三 配置数据库连接&web端口配置 支持多环境配置
 * 项目中使用到的mysql数据库表：koa2-bff/config/bff_cachedata.sql
 * 先创建数据库(默认bffdb)再运行该脚本创建表
 * 配置项目中的数据库连接
 * 路径：koa2-bff/config/default.js
 * port web端口
-```js
-const account = {
-  // 启动端口
-  port: 3000,
-  // 数据库配置
-  database: {
-    DATABASE: 'bffdb',
-    USERNAME: 'root',
-    PASSWORD: '1',
-    PORT: '3306',
-    HOST: '127.0.0.1'
-  }
-}
+
+## 步骤四 启动和停止项目 (根据环境要求运行不同的脚本)
 ```
-## 步骤四 启动和停止项目
-```
-npm run start
+npm run dev | test | production | release
 npn run stopall
 ```
 启动成功如下图
@@ -64,24 +51,25 @@ pm2 web              (监控所有被PM2管理的进程,而且同时还想监控
 ```
 [查看更多关于pm2](http://pm2.keymetrics.io/)
 
-## 查看日志
+## 查看日志 支持不同环境的日志配置
 日志配置文件：ecosystem.config.js
 ```js
 module.exports = {
   apps: [{
-    name: 'koa2-bff',
+    name: 'koa2-bff-development',
     script: 'index.js',
     autorestart: true,
     output: './logs/out.log',
     error: './logs/error.log',
     log: './logs/combined.outerr.log',
     env: {
-      NODE_ENV: 'development'
-    },
-    env_production: {
-      NODE_ENV: 'production'
+      NODE_ENV: 'development',
+      port: 3000
     }
-  }]
+  }
+  ......
+  ......
+  ]
 }
 ```
 使用pm2查看后台日志

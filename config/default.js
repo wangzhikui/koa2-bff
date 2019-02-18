@@ -1,15 +1,69 @@
 const mysql = require('mysql')
-const account = {
-  // 启动端口
-  port: 3000,
-  // 数据库配置
-  database: {
-    DATABASE: 'bffdb',
-    USERNAME: 'root',
-    PASSWORD: '1',
-    PORT: '3306',
-    HOST: '127.0.01'
-  }
+let account = null;
+// 不同环境设置不同配置
+switch (process.env.NODE_ENV) {
+  //测试环境
+  case 'test':
+    console.log('测试环境')
+    account = {
+      // 启动端口
+      port: process.env.port,
+      // 数据库配置
+      database: {
+        DATABASE: 'bffdb',
+        USERNAME: 'root',
+        PASSWORD: '1',
+        PORT: '3306',
+        HOST: '127.0.0.1'
+      }
+    }
+    break;
+  //生产环境
+  case 'production':
+    console.log('生产环境')
+    account = {
+      // 启动端口
+      port: process.env.port,
+      // 数据库配置
+      database: {
+        DATABASE: 'bffdb',
+        USERNAME: 'root',
+        PASSWORD: '1',
+        PORT: '3306',
+        HOST: '127.0.0.1'
+      }
+    }
+    break;
+  //预发布环境
+  case 'release':
+    console.log('预发布环境')
+    account = {
+      // 启动端口
+      port: process.env.port,
+      // 数据库配置
+      database: {
+        DATABASE: 'bffdb',
+        USERNAME: 'root',
+        PASSWORD: '1',
+        PORT: '3306',
+        HOST: '127.0.0.1'
+      }
+    }
+    break;
+  // 本地
+  default:
+    account = {
+      // 启动端口
+      port: process.env.port,
+      // 数据库配置
+      database: {
+        DATABASE: 'bffdb',
+        USERNAME: 'root',
+        PASSWORD: '1',
+        PORT: '3306',
+        HOST: '127.0.0.1'
+      }
+    }
 }
 // 数据库连接池配置
 let pool = mysql.createPool({

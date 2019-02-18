@@ -1,17 +1,20 @@
 {
-  "name": "dataface-proxy",
+  "name": "koa2-bff",
   "version": "1.0.0",
   "description": "基于koa开发的前端业务中台",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pm2 start ecosystem.config.js --only koa2-bff-development --watch",
+    "test": "pm2 start ecosystem.config.js --only koa2-bff-test --watch",
+    "release": "pm2 start ecosystem.config.js --only koa2-bff-release --watch",
+    "production": "pm2 start ecosystem.config.js --only koa2-bff-production --watch",
     "start": "pm2 start",
     "restart": "pm2 restart all",
     "stopall": "pm2 stop all"
   },
   "repository": {
     "type": "git",
-    "url": "git@git.yonyou.com:youyunyin/dataface-proxy.git"
+    "url": "git@github.com:wangzhikui/koa2-bff.git"
   },
   "author": "",
   "license": "ISC",
